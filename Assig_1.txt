@@ -1,55 +1,48 @@
-//to count the number of 0's  in giver integer array in which 0's are follwed by 1's.
+//all one follows zero
+//input=>[1 1 1 0 0]=>total zero are 2
+//note in this code we returning the position of first zero 
 
-
-#include <iostream>
-#include <vector>
+#include<iostream>
 using namespace std;
-
-int countZeros(const vector<int>& nums) {
-    int n = nums.size();
-
-    if (nums[n - 1] == 1)
-        return 0;
-
-    if (nums[0] == 0)
-        return n;
-
-    int low = 0, high = n - 1, pos = -1;
-
-    while (low <= high) {
-        int mid = (low + high) / 2;
-
-        if (nums[mid] == 0) {
-            if (mid == 0 || nums[mid - 1] == 1) {
-                pos = mid;
-                break;
-            } else {
-                high = mid - 1;
-            }
-        } else {
-            low = mid + 1;
+int binary_search(int arr[],int size)
+{
+    int result=size;
+    int low=0;
+    int mid;
+    int high=size-1;
+    while(low<=high)
+    {
+        mid=(low+high)/2;
+        
+        if(arr[mid]==1)
+        {
+            low=mid+1;
         }
+        else
+        {
+            high=mid-1;
+            result=mid;
+        }
+        
+        
     }
-
-    if (pos == -1)
-        return 0;
-
-    return n - pos;
+    return result;
 }
 
-int main() {
+int main()
+{
     int n;
-    cout << "Enter the size of the array: ";
-    cin >> n;
-
-    vector<int> nums(n);
-    cout << "Enter " << n << " elements (only 1s followed by 0s):\n";
-    for (int i = 0; i < n; ++i) {
-        cin >> nums[i];
+    cout<<"enter the array size:";
+    cin>>n;
+    int a[n];
+    cout<<"enter array element:";
+    for(int i=0;i<n;i++)
+    {
+        cin>>a[i];
     }
-
-    int zeroCount = countZeros(nums);
-    cout << "Number of zeros: " << zeroCount << endl;
-
+    
+    int index=binary_search(a,n);
+    cout<<"total no of zeroes are:"<<n-index;
+    
     return 0;
 }
